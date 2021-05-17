@@ -1,4 +1,4 @@
-FROM from python:3.8-slim-buster
+FROM python:3.8-slim-buster
 
 RUN pip3 install --upgrade pip \
     Flask==1.0.2 \
