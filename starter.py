@@ -4,7 +4,7 @@ import os
 #!flask/bin/python
 from flask import Flask, json, jsonify, logging, request
 
-#import classification_facade
+# import classification_facade
 
 with open('./config.json') as config_file:
     CONFIG = json.load(config_file)
@@ -22,13 +22,23 @@ def post_classification_result(lang):
     # process content
 
     # start concept detection
-    #processed_tweets = classification_facade.process_tweets(tweets, lang)
+    # processed_tweets = classification_facade.process_tweets(tweets, lang)
 
     # app.logger.debug(classified_tweets)
-    #return jsonify(processed_tweets)
+    # return jsonify(processed_tweets)
 
     # for now we return the things we received
     return jsonify(content)
+
+
+@app.route("/hitec/classify/concepts/seanmf/status", methods=["GET"])
+def get_status():
+
+    status = {
+        "status": "operational",
+    }
+
+    return jsonify(status)
 
 
 if __name__ == "__main__":
