@@ -1,9 +1,11 @@
 FROM python:3.8-slim-buster
 
-RUN pip3 install --upgrade pip \
-    Flask==1.0.2 \
-    numpy==1.20.3
+WORKDIR /app
 
+COPY requirements.txt requirements.txt
+RUN pip3 install --upgrade pip -r requirements.txt
+
+COPY . .
 
 EXPOSE 9657
 
