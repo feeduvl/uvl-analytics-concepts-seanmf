@@ -35,8 +35,9 @@ def post_classification_result():
     data_process.process(timestamp)
 
     # start concept detection
-    train.train(timestamp, content["method"], content["alpha"], content["beta"], content["n_topics"],
-                content["max_iter"], content["max_err"], content["fix_random"])
+    params = content["params"]
+    train.train(timestamp, content["method"], float(params["alpha"]), float(params["beta"]), int(params["n_topics"]),
+                int(params["max_iter"]), float(params["max_err"]), bool(params["fix_random"]))
 
     # prepare results
     topics, doc_topic = results.prepare_results(timestamp)
