@@ -33,6 +33,9 @@ PMI_arr = []
 n_topKeyword = 10
 for k in range(n_topic):
     topKeywordsIndex = W[:,k].argsort()[::-1][:n_topKeyword]
+    with np.printoptions(precision=3, suppress=True):
+        print(np.sort(W[:, k])[::-1][:n_topKeyword])
+    break
     PMI_arr.append(calculate_PMI(dt_mat, topKeywordsIndex))
 print('Average PMI={}'.format(np.average(np.array(PMI_arr))))
 

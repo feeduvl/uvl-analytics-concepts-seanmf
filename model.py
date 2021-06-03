@@ -9,16 +9,16 @@ from numpy.linalg import norm
 class SeaNMFL1(object):
     def __init__(
         self,
-        A, S, 
+        A, S,
         IW1=[], IW2=[], IH=[],
-        alpha=1.0, beta=0.1, n_topic=10, max_iter=100, max_err=1e-3, 
+        alpha=1.0, beta=0.1, n_topic=10, max_iter=100, max_err=1e-3,
         rand_init=True, fix_seed=False):
         '''
         0.5*||A-WH^T||_F^2+0.5*alpha*||S-WW_c^T||_F^2+0.5*beta*||W||_1^2
         W = W1
         Wc = W2
         '''
-        if fix_seed: 
+        if fix_seed:
             np.random.seed(0)
 
         self.A = A
@@ -100,7 +100,7 @@ class SeaNMFL1(object):
         AtW1 = np.dot(self.A.T, self.W1)
         for k in range(self.n_topic):
             self.H[:,k] = self.H[:,k] + AtW1[:,k] - np.dot(self.H, W1tW1[:,k])
-            self.H[:,k] = np.maximum(self.H[:,k], epss) 
+            self.H[:,k] = np.maximum(self.H[:,k], epss)
 
     def nmf_loss(self):
         '''
@@ -111,23 +111,23 @@ class SeaNMFL1(object):
             loss += self.alpha*norm(np.dot(self.W1, np.transpose(self.W2))-self.S, 'fro')**2/2.0
         if self.beta > 0:
             loss += self.beta*norm(self.W1, 1)**2/2.0
-        
+
         return loss
-    
+
     def get_lowrank_matrix(self):
         return self.W1, self.W2, self.H
-    
+
     def save_format(self, W1file='W.txt', W2file='Wc.txt', Hfile='H.txt'):
         np.savetxt(W1file, self.W1)
         np.savetxt(W2file, self.W2)
         np.savetxt(Hfile, self.H)
-        
+
 '''
 Topic Modeling via NMF
 '''
 class NMF(object):
     def __init__(
-        self, 
+        self,
         A, IW=[], IH=[],
         n_topic=10, max_iter=100, max_err=1e-3,
         rand_init=True):
@@ -137,7 +137,7 @@ class NMF(object):
         self.A = A
         self.n_row = A.shape[0]
         self.n_col = A.shape[1]
-        
+
         self.n_topic = n_topic
         self.max_iter = max_iter
         self.max_err = max_err
@@ -148,14 +148,14 @@ class NMF(object):
         else:
             self.nmf_init(IW, IH)
         self.nmf_iter()
-    
+
     def nmf_init_rand(self):
         self.W = np.random.random((self.n_row, self.n_topic))
         self.H = np.random.random((self.n_col, self.n_topic))
 
         for k in range(self.n_topic):
             self.W[:,k] /= norm(self.W[:,k])
-                
+
     def nmf_init(self, IW, IH):
         self.W = IW
         self.H = IH
@@ -178,21 +178,21 @@ class NMF(object):
             end_time = time.time()
             print('Step={}, Loss={}, Time={}s'.format(i, loss, end_time-start_time))
         print('loop end')
-                
+
     def nmf_solver(self):
         '''
         regular NMF without constraint.
         Block Coordinate Decent
         '''
         epss = 1e-20
-        
+
         HtH = self.H.T.dot(self.H)
         AH = self.A.dot(self.H)
         for k in range(self.n_topic):
             tmpW = self.W[:,k]*HtH[k,k] + AH[:,k] - np.dot(self.W, HtH[:,k])
             self.W[:,k] = np.maximum(tmpW, epss)
             self.W[:,k] /= norm(self.W[:,k]) + epss
-        
+
         WtW = self.W.T.dot(self.W)
         AtW = self.A.T.dot(self.W)
         for k in range(self.n_topic):
@@ -202,13 +202,13 @@ class NMF(object):
     def nmf_loss(self):
         loss = norm(self.A - np.dot(self.W, np.transpose(self.H)), 'fro')**2/2.0
         return loss
-    
+
     def get_loss(self):
         return np.array(self.obj)
-    
+
     def get_lowrank_matrix(self):
         return self.W, self.H
-    
+
     def save_format(self, Wfile='W.txt', Hfile='H.txt'):
         np.savetxt(Wfile, self.W)
         np.savetxt(Hfile, self.H)

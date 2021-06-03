@@ -1,10 +1,13 @@
 """This file starts the microservice"""
-import os
 
-#!flask/bin/python
-from flask import Flask, json, jsonify, logging, request
+import datetime
 
-# import classification_facade
+from flask import Flask, json, jsonify, request
+
+import data_process
+import train
+import results
+import utils
 
 with open('./config.json') as config_file:
     CONFIG = json.load(config_file)
@@ -13,27 +16,45 @@ app = Flask(__name__)
 
 
 @app.route("/hitec/classify/concepts/seanmf/", methods=["POST"])
-def post_classification_result(lang):
-    app.logger.debug('/hitec/classify/concepts/seanmf/ called'.format(lang))
+def post_classification_result():
+    app.logger.debug('/hitec/classify/concepts/seanmf/ called')
+
+    timestamp = '{:%Y-%m-%d %H%M%S-%f}'.format(datetime.datetime.now())
 
     # app.logger.debug(request.data.decode('utf-8'))
     content = json.loads(request.data.decode('utf-8'))
 
-    # process content
+    # save content
+    dataset = content["dataset"]["documents"]
+
+    with open('data/data_' + timestamp + ".txt", 'w') as out_file:
+        for doc in dataset:
+            out_file.write(doc["text"])
+
+    # start pre-processing
+    data_process.process(timestamp)
 
     # start concept detection
-    # processed_tweets = classification_facade.process_tweets(tweets, lang)
+    train.train(timestamp, content["method"], content["alpha"], content["beta"], content["n_topics"],
+                content["max_iter"], content["max_err"], content["fix_random"])
 
-    # app.logger.debug(classified_tweets)
-    # return jsonify(processed_tweets)
+    # prepare results
+    topics, doc_topic = results.prepare_results(timestamp)
 
-    # for now we return the things we received
-    return jsonify(content)
+    res = dict()
+
+    res.update({"topics": topics})
+    res.update({"doc_topic": doc_topic})
+
+    # cleanup
+    utils.cleanup(timestamp)
+
+    # send results back
+    return jsonify(res)
 
 
 @app.route("/hitec/classify/concepts/seanmf/status", methods=["GET"])
 def get_status():
-
     status = {
         "status": "operational",
     }

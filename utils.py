@@ -1,5 +1,7 @@
+import os
 import re
 import numpy as np
+
 
 def read_docs(file_name):
     print('read documents')
@@ -15,6 +17,7 @@ def read_docs(file_name):
     
     return docs
 
+
 def read_vocab(file_name):
     print('read vocabulary')
     print('-'*50)
@@ -26,6 +29,21 @@ def read_vocab(file_name):
     fp.close()
 
     return vocab
+
+
+def cleanup(file_suffix=""):
+    text_file = "data/data_" + file_suffix + ".txt"
+    corpus_file = "data/doc_term_mat_" + file_suffix + ".txt"
+    vocab_file = "data/vocab_" + file_suffix + ".txt"
+    W1file = 'seanmf_results/W_' + file_suffix + '.txt'
+    W2file = 'seanmf_results/Wc_' + file_suffix + '.txt'
+    Hfile = 'seanmf_results/H_' + file_suffix + '.txt'
+
+    files = [text_file, corpus_file, vocab_file, W1file, W2file, Hfile]
+
+    for file in files:
+        os.remove(file)
+
 
 def calculate_PMI(AA, topKeywordsIndex):
     '''
