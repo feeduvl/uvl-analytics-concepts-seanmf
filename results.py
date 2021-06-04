@@ -41,7 +41,7 @@ def prepare_results(file_suffix=""):
         l = list()
 
         for t in topTopicIndex:
-            l.append([t, s[t]])
+            l.append([t, float(s[t])])
 
         doc_topic.update({str(k): l})
 
