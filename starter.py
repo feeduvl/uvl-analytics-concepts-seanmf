@@ -24,7 +24,7 @@ def post_classification_result():
     # app.logger.debug(request.data.decode('utf-8'))
     content = json.loads(request.data.decode('utf-8'))
 
-    app.logger.debug(content)
+    print(content)
 
     # save content
     dataset = content["dataset"]["documents"]
