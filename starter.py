@@ -15,9 +15,9 @@ with open('./config.json') as config_file:
 app = Flask(__name__)
 
 
-@app.route("/hitec/classify/concepts/seanmf", methods=["POST"])
+@app.route("/hitec/classify/concepts/seanmf/run", methods=["POST"])
 def post_classification_result():
-    app.logger.debug('/hitec/classify/concepts/seanmf called')
+    app.logger.debug('/hitec/classify/concepts/seanmf/run called')
 
     timestamp = '{:%Y-%m-%d %H%M%S-%f}'.format(datetime.datetime.now())
 
