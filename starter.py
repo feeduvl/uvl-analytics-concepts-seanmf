@@ -24,14 +24,14 @@ def post_classification_result():
     # app.logger.debug(request.data.decode('utf-8'))
     content = json.loads(request.data.decode('utf-8'))
 
-    print(content)
+    app.logger.info(content)
 
     # save content
     dataset = content["dataset"]["documents"]
 
     with open('data/data_' + timestamp + ".txt", 'w') as out_file:
         for doc in dataset:
-            out_file.write(doc["text"])
+            out_file.write(doc["text"] + '\n')
 
     # start pre-processing
     data_process.process(timestamp)
