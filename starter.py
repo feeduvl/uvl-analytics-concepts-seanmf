@@ -19,7 +19,7 @@ app = Flask(__name__)
 def post_classification_result():
     app.logger.debug('/hitec/classify/concepts/seanmf/run called')
 
-    timestamp = '{:%Y-%m-%d %H%M%S-%f}'.format(datetime.datetime.now())
+    timestamp = '{:%Y-%m-%d_%H%M%S-%f}'.format(datetime.datetime.now())
 
     # app.logger.debug(request.data.decode('utf-8'))
     content = json.loads(request.data.decode('utf-8'))
