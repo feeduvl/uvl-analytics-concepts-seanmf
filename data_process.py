@@ -4,12 +4,31 @@ Visualize Topics
 import argparse
 
 from utils import *
+from gensim.parsing import preprocessing as pp
+
+
+def preprocess(text_file):
+    print('perform preprocessing')
+    arr = []
+    fp = open(text_file, 'r')
+    for line in fp:
+        s = pp.preprocess_string(line.lower(), filters=[pp.strip_tags, pp.strip_punctuation, pp.strip_multiple_whitespaces,
+                                            pp.strip_numeric, pp.remove_stopwords])
+        arr.append(s)
+    fp.close()
+
+    fout = open(text_file, 'w')
+    for itm in arr:
+        fout.write(' '.join(itm) + '\n')
+    fout.close()
 
 
 def process(file_suffix="", vocab_max_size=10000, vocab_min_count=3):
     text_file = "data/data_" + file_suffix + ".txt"
     corpus_file = "data/doc_term_mat_" + file_suffix + ".txt"
     vocab_file = "data/vocab_" + file_suffix + ".txt"
+
+    preprocess(text_file)
 
     # create vocabulary
     vocab = {}
@@ -56,7 +75,11 @@ if __name__ == "__main__":
     parser.add_argument('--vocab_file', default='data/vocab.txt', help='vocab file')
     parser.add_argument('--vocab_max_size', type=int, default=10000, help='maximum vocabulary size')
     parser.add_argument('--vocab_min_count', type=int, default=3, help='minimum frequency of the words')
+    parser.add_argument('--preprocessing', type=bool, default=False, help='enable preprocessing')
     args = parser.parse_args()
+
+    if args.preprocessing:
+        preprocess(args.text_file)
 
     # create vocabulary
     print('create vocab')
