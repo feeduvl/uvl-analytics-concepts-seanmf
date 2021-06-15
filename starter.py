@@ -8,6 +8,7 @@ import data_process
 import train
 import results
 import utils
+import vis_topic
 
 with open('./config.json') as config_file:
     CONFIG = json.load(config_file)
@@ -50,6 +51,10 @@ def post_classification_result():
 
     res.update({"topics": topics})
     res.update({"doc_topic": doc_topic})
+
+    # calculate metrics
+    metrics = vis_topic.get_metrics(timestamp)
+    res.update({"metrics": metrics})
 
     # cleanup
     utils.cleanup(timestamp)
