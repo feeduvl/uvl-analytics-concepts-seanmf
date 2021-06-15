@@ -9,12 +9,10 @@ from utils import *
 def get_metrics(file_suffix=""):
 
     metrics = dict()
-    corpus_file = read_docs("data/doc_term_mat_" + file_suffix + ".txt")
-    vocab_file = read_vocab("data/vocab_" + file_suffix + ".txt")
+    docs = read_docs("data/doc_term_mat_" + file_suffix + ".txt")
+    vocab = read_vocab("data/vocab_" + file_suffix + ".txt")
     par_file = "seanmf_results/W_" + file_suffix + ".txt"
 
-    docs = read_docs(corpus_file)
-    vocab = read_vocab(vocab_file)
     n_docs = len(docs)
     n_terms = len(vocab)
     print('n_docs={}, n_terms={}'.format(n_docs, n_terms))
