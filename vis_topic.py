@@ -1,6 +1,6 @@
-'''
+"""
 Visualize Topics
-'''
+"""
 import argparse
 
 from utils import *
@@ -32,10 +32,7 @@ print('n_topic={}'.format(n_topic))
 PMI_arr = []
 n_topKeyword = 10
 for k in range(n_topic):
-    topKeywordsIndex = W[:,k].argsort()[::-1][:n_topKeyword]
-    with np.printoptions(precision=3, suppress=True):
-        print(np.sort(W[:, k])[::-1][:n_topKeyword])
-    break
+    topKeywordsIndex = W[:, k].argsort()[::-1][:n_topKeyword]
     PMI_arr.append(calculate_PMI(dt_mat, topKeywordsIndex))
 print('Average PMI={}'.format(np.average(np.array(PMI_arr))))
 
@@ -44,6 +41,6 @@ index = np.argsort(PMI_arr)
 for k in index:
     print('Topic ' + str(k+1) + ': ', end=' ')
     print(PMI_arr[k], end=' ')
-    for w in np.argsort(W[:,k])[::-1][:n_topKeyword]:
+    for w in np.argsort(W[:, k])[::-1][:n_topKeyword]:
         print(vocab[w], end=' ')
     print()

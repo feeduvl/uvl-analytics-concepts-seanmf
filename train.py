@@ -42,7 +42,7 @@ def train(file_suffix="", method="seanmf", alpha=0.1, beta=0, n_topics=10, max_i
             Hfile=tmp_folder + '/H_' + file_suffix + '.txt')
 
     if method.lower() == 'seanmf':
-        print('calculate co-occurance matrix')
+        print('calculate co-occurence matrix')
         dt_mat = np.zeros([n_terms, n_terms])
         for itm in docs:
             for kk in itm:
@@ -131,7 +131,7 @@ if __name__ == "__main__":
             Hfile=tmp_folder+'/H.txt')
 
     if args.model.lower() == 'seanmf':
-        print('calculate co-occurance matrix')
+        print('calculate co-occurence matrix')
         dt_mat = np.zeros([n_terms, n_terms])
         for itm in docs:
             for kk in itm:

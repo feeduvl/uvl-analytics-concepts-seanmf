@@ -36,7 +36,8 @@ def prepare_results(file_suffix=""):
 
     for k in range(n_docs):
         topTopicIndex = H[k, :].argsort()[::-1]
-        s = softmax(H[k, :])
+        # s = softmax(H[k, :])
+        s = H[k, :]
 
         l = list()
 
