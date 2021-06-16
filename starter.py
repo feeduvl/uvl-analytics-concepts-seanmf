@@ -42,7 +42,7 @@ def post_classification_result():
 
     # start concept detection
     train.train(timestamp, content["method"], float(params["alpha"]), float(params["beta"]), int(params["n_topics"]),
-                int(params["max_iter"]), float(params["max_err"]), bool(params["fix_random"]))
+                int(params["max_iter"]), float(params["max_err"]), params["fix_random"] == "true")
 
     # prepare results
     topics, doc_topic = results.prepare_results(timestamp)
