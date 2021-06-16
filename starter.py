@@ -22,7 +22,7 @@ def post_classification_result():
 
     timestamp = '{:%Y-%m-%d_%H%M%S-%f}'.format(datetime.datetime.now())
 
-    # app.logger.debug(request.data.decode('utf-8'))
+    app.logger.debug(request.data.decode('utf-8'))
     content = json.loads(request.data.decode('utf-8'))
 
     app.logger.info(content)
