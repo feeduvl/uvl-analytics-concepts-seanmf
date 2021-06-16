@@ -62,7 +62,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/definitions/Result'
+                $ref: '#/components/schemas/Result'
         '500':
           description: returns code 500 when the request is invalid or there was an error while processing
       servers:
@@ -90,14 +90,14 @@ paths:
         - url: 'https://feed-uvl.ifi.uni-heidelberg.de'
     servers:
       - url: 'https://feed-uvl.ifi.uni-heidelberg.de'
-
-definitions:
-  Result:
-    type: object
-    properties:
-      topics:
-        type: object
-      doc_topic:
-        type: object
-      metrics:
-        type: object
+components:
+  schemas:
+    Result:
+      type: object
+      properties:
+        topics:
+          type: object
+        doc_topic:
+          type: object
+        metrics:
+          type: object
