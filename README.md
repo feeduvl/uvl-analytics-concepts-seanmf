@@ -6,7 +6,7 @@ This is a microservice that can run in a docker container and perform SeaNMF top
 
 ## REST API
 
-See [swagger.yaml](../blob/master/swagger.yaml) for details. The tool at https://editor.swagger.io/ can be used to render the swagger file.
+See [swagger.yaml](../master/swagger.yaml) for details. The tool at https://editor.swagger.io/ can be used to render the swagger file.
 
 ## Method Parameter
 
