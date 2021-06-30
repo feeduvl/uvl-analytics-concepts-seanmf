@@ -20,7 +20,7 @@ See [swagger.yaml](../master/swagger.yaml) for details. The tool at https://edit
 
 **max_err** - Error threshold. The processing will stop when the error is smaller than `max_err` or `max_iter` is reached. Default: 0.1
 
-**fix_seed** -  Set to `true` to fix random seed to `0`. This will make the results reproducible. Default: false
+**fix_random** -  Set to `true` to fix random seed to `0`. This will make the results reproducible. Default: false
 
 **vocab_min_count** - Only words that occur more than `vocab_min_count` times will be added to vocabulary, if the dataset is small and the `vocab_min_count` to high, the processing will fail. Default: 3
 
