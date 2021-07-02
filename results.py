@@ -12,6 +12,10 @@ def softmax(x):
     return np.exp(x) / np.sum(np.exp(x))
 
 
+def normalize(x):
+    return x / np.sum(x)
+
+
 def prepare_results(file_suffix=""):
     docs = read_docs("data/doc_term_mat_" + file_suffix + ".txt")
     vocab = read_vocab("data/vocab_" + file_suffix + ".txt")
@@ -38,6 +42,9 @@ def prepare_results(file_suffix=""):
         topTopicIndex = H[k, :].argsort()[::-1]
         # s = softmax(H[k, :])
         s = H[k, :]
+
+        # normalize
+        s = normalize(s)
 
         l = list()
 
