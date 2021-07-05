@@ -32,7 +32,7 @@ def post_classification_result():
 
     with open('data/data_' + timestamp + ".txt", 'w') as out_file:
         for doc in dataset:
-            out_file.write(doc["text"] + '\n')
+            out_file.write(doc["text"].replace("\n","") + '\n')
 
     # get parameter
     params = content["params"]
