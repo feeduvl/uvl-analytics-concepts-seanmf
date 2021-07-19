@@ -12,8 +12,9 @@ def preprocess(text_file):
     arr = []
     fp = open(text_file, 'r')
     for line in fp:
-        s = pp.preprocess_string(line.lower(), filters=[pp.strip_tags, pp.strip_punctuation, pp.strip_multiple_whitespaces,
-                                            pp.strip_numeric, pp.remove_stopwords])
+        s = pp.preprocess_string(line.lower(), filters=[pp.strip_tags, pp.strip_punctuation, pp.strip_non_alphanum,
+                                                        pp.strip_multiple_whitespaces, pp.strip_numeric,
+                                                        pp.remove_stopwords])
         arr.append(s)
     fp.close()
 
