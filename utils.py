@@ -65,4 +65,3 @@ def calculate_PMI(AA, topKeywordsIndex):
     avg_PMI = 2.0*np.sum(PMI)/float(n_tp)/(float(n_tp)-1.0)
 
     return avg_PMI
-

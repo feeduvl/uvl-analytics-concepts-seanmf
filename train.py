@@ -174,4 +174,3 @@ if __name__ == "__main__":
             W1file=tmp_folder+'/W.txt',
             W2file=tmp_folder+'/Wc.txt',
             Hfile=tmp_folder+'/H.txt')
-

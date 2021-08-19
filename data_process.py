@@ -102,7 +102,7 @@ if __name__ == "__main__":
     fout = open(args.vocab_file, 'w')
     for itm in vocab_arr:
         itm[1] = str(itm[1])
-        fout.write(' '.join(itm)+'\n')
+        fout.write(' '.join(itm) + '\n')
     fout.close()
 
     # vocabulary to id
@@ -115,6 +115,6 @@ if __name__ == "__main__":
         arr = re.split('\s', line[:-1])
         arr = [str(vocab2id[wd]) for wd in arr if wd in vocab2id]
         sen = ' '.join(arr)
-        fout.write(sen+'\n')
+        fout.write(sen + '\n')
     fp.close()
     fout.close()

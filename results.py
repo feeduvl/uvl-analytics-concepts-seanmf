@@ -1,7 +1,8 @@
 """
 Prepare results
 """
-from utils import *
+import numpy as np
+from utils import read_docs, read_vocab
 
 
 def sigmoid(x):
